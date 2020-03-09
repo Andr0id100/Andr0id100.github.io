@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Andr0id Crash Logs
-description: A place for me to geek out about machine learning and occasionaly otherthings
+description: A place for me to geek out about machine learning and occasionaly other things
 github_username: Andr0id100
 
 # Email and twitter are optional:
@@ -15,7 +15,7 @@ email: snehalranjan5472@gmail.com
 twitter_username: ranjan_snehal
 
 # Set this to true to get LaTeX math equation support
-use_math:
+use_math: true
 
 # Add your Google Analytics ID here if you have one and want to use it
 google_analytics:
