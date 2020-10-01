@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Testing Three.js</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./three.js"></script>
+    <script>
+        const PI = 3.1415926535;
+        var theta = 0;
+        var camera_theta = 0;
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var geometry = new THREE.SphereGeometry(1, 32, 32);
+        var material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+
+        camera.rotation.y = PI / 2;
+
+        const radius = 20;
+        const SPHERE_COUNT = 10;
+        const CAMERA_RADIUS = 50;
+        var spheres = [];
+
+        var offsets = []
+        for (i = 1; i <= SPHERE_COUNT; i++) {
+            var material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+            var sphere = new THREE.Mesh(geometry, material);
+            spheres.push(sphere);
+            scene.add(sphere);
+
+            sphere.position.z = radius * Math.cos(theta);
+            sphere.position.y = radius * Math.sin(theta);
+
+            offsets.push(2 * PI * i / SPHERE_COUNT);
+
+        }
+        // scene.add(sphere);
+
+        function moveCamera() {
+            camera.position.x = CAMERA_RADIUS * Math.cos(camera_theta);
+            camera.position.z = CAMERA_RADIUS * Math.sin(camera_theta);
+
+            camera.rotation.y = PI/2 - camera_theta; 
+            camera_theta += 0.009;
+        }
+
+        function moveSpheres() {
+            for (i = 0; i < 10; i++) {
+
+
+                spheres[i].position.z = radius * Math.cos(offsets[i] + theta);
+                spheres[i].position.y = radius * Math.sin(offsets[i] + theta);
+
+            }
+        }
+
+
+        function animate() {
+            theta += 0.01;
+            requestAnimationFrame(animate);
+
+            moveSpheres();
+            moveCamera();
+
+            renderer.render(scene, camera);
+            // console.log(Math.random() * 0xffffff);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
